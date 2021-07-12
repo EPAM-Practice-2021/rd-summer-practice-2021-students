@@ -1152,7 +1152,7 @@
                 $team.$coins.text(team.coins);
             };
             GameView.prototype.setButtons = function (status) {
-                /**
+                 /**
                  * TODO: Task 8. Проинициализируйте состояние кнопок для владельца игры и администратора
                  *    с учётом текущего статуса игры
                  *    для добавление класса можно использовать utils.addClasses($el,'hidden')
@@ -1165,31 +1165,108 @@
                  *    this.state.getPlayer(currentUserId) - пользователь в игре?
                  *    this.btns - кнопки тут
                  */
-            };
-            GameView.prototype.showLoading = function () {
-                /**
-                 * TODO: Task 9. Опишите доступность элементов при загрузке игры $container $error $loading
-                 */
-            };
-            GameView.prototype.showError = function () {
-                /**
-                 * TODO: Task 10. Опишите доступность элементов при загрузке игры $container $error $loading
-                 */
-            };
-            GameView.prototype.show = function () {
-                /**
-                 * TODO: Task 11. Опишите доступность элементов при загрузке игры $container $error $loading
-                 */
-            };
-
-            return GameView;
-        })();
-    })(app.game = app.game || {});
-})(window.app = window.app || {}, $);
-
-/**
- * TODO: Task 12. (Дополнительно) Обработайте ошибки которые могут быть при нажатии на кнопки
- *      для показа сообщения можно использовать alert
- *      можно попробовать сделать это используя модальные окна, только если игра уже работает
- *      https://getbootstrap.com/docs/3.3/javascript/#modals
- */
+                  status = this.state.status;
+                  const currentUser = this.state.gameApi.questor.user.id;
+                  const isOwner = currentUser === this.state.owner.id;
+                  const isAdmin = this.state.gameApi.questor.user.isAdmin;
+                  const connected = Boolean(this.state.getPlayer(currentUser));
+                  const initBtnsStartCancel = () => {
+                  if (isOwner) {
+                     this.$btnStart.removeClass("hidden");
+                     this.$btnCancel.removeClass("hidden");                    
+                     }               
+                     if (!isOwner) {                   
+                     this.$btnStart.addClass("hidden");                 
+                     }                 
+                     if (!isOwner && isAdmin) {                 
+                     this.$btnCancel.removeClass("hidden");                 
+                     }                  
+                     if (!isOwner && !isAdmin) {                 
+                     this.$btnCancel.addClass("hidden");                
+                     }
+                  }
+ 
+                  if (this.state.status === GameApi.GameStatus.canceled || this.state.status === GameApi.GameStatus.finished) {
+                    this.$btnStart.addClasses("hidden"); 
+                    this.$btnLeave.addClasses("hidden");
+                    this.$btnPause.addClasses("hidden");
+                    this.$btnCancel.addClasses("hidden");                    
+                    this.$btnConnect.addClasses("hidden");                    
+                    this.$btnConnectPolice.addClasses("hidden");                    
+                    this.$btnConnectThief.addClasses("hidden");                    
+                  return;                    
+                 }
+ 
+                 if (this.state.status === GameApi.GameStatus.open ||
+                     this.state.status === GameApi.GameStatus.ready) {                    
+                     this.$btnPause.addClasses("hidden");                    
+                     initBtnsStartCancel();                    
+                     if(connected) {                    
+                     this.$btnLeave.removeClasses("hidden");                    
+                     this.$btnConnect.addClasses("hidden");                    
+                     this.$btnConnectPolice.addClasses("hidden");                    
+                     this.$btnConnectThief.addClasses("hidden");                    
+                     } else {                    
+                     this.$btnLeave.addClasses("hidden");                    
+                     this.$btnConnect.removeClasses("hidden");                    
+                     this.$btnConnectPolice.removeClasses("hidden");                    
+                     this.$btnConnectThief.removeClasses("hidden");                    
+                     }                    
+                     return;                    
+                     }                    
+                     initBtnsStartCancel();
+ 
+                     if (
+                         this.state.status === GameApi.GameStatus.starting ||                        
+                         this.state.status === GameApi.GameStatus.inProcess                        
+                         ) {                        
+                         this.$btnStart.addClasses("hidden");                        
+                         this.$btnLeave.addClasses("hidden");                        
+                         this.$btnConnect.addClasses("hidden");                        
+                         this.$btnConnectPolice.addClasses("hidden");                        
+                         this.$btnConnectThief.addClasses("hidden");                        
+                         } else {                        
+                         this.$btnPause.addClasses("hidden");                        
+                         this.$btnLeave.addClasses("hidden");                        
+                         this.$btnConnect.addClasses("hidden");                        
+                         this.$btnConnectPolice.addClasses("hidden");                        
+                         this.$btnConnectThief.addClasses("hidden");                        
+                     }                             
+             };
+             GameView.prototype.showLoading = function () {
+                 /**
+                  * TODO: Task 9. Опишите доступность элементов при загрузке игры $container $error $loading
+                  */
+                  this.$error.addClass("hidden");
+                  this.$container.addClass("hidden");
+                  this.$loading.removeClass("hidden");
+             };
+             GameView.prototype.showError = function () {
+                 /**
+                  * TODO: Task 10. Опишите доступность элементов при загрузке игры $container $error $loading
+                  */
+                  this.$error.removeClass("hidden");
+                  this.$container.addClass("hidden");
+                  this.$loading.addClass("hidden");
+             };
+             GameView.prototype.show = function () {
+                 /**
+                  * TODO: Task 11. Опишите доступность элементов при загрузке игры $container $error $loading
+                  */
+                  this.$error.addClass("hidden");
+                  this.$container.removeClass("hidden");
+                  this.$loading.addClass("hidden");
+             };
+ 
+             return GameView;
+         })();
+     })(app.game = app.game || {});
+ })(window.app = window.app || {}, $);
+ 
+ /**
+  * TODO: Task 12. (Дополнительно) Обработайте ошибки которые могут быть при нажатии на кнопки
+  *      для показа сообщения можно использовать alert
+  *      можно попробовать сделать это используя модальные окна, только если игра уже работает
+  *      https://getbootstrap.com/docs/3.3/javascript/#modals
+  */
+ 
