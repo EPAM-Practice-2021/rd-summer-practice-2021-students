@@ -808,6 +808,10 @@
                 /**
                  * TODO Task 2. Опишите функцию которая задаст размеры игрового поля
                  */
+                $canvas.style.width = width + 'px';
+                $canvas.style.height = `${height}px`;
+                $canvas.width = `${width}`;
+                $canvas.height = `${height}`;
                 return $canvas;
             }
             function drawMapField(canvas, map, width, height, cellSize) {
@@ -881,43 +885,41 @@
                 // TODO Task 3.1 повешайте обработчики событий
                 var btns = this.btns;
                 var $lastKey = -1;
-                btns.$btnGameList.click(function () {
-                    window.location.replace("index.html");
-                });
-                btns.$btnStart.click(function () {
-                    this.state.game.start();
-                }.bind(this));
-                // btns.$btnConnect.
-                // btns.$btnConnectPolice.
-                // btns.$btnConnectThief.
-                // btns.$btnLeave.
-                // btns.$btnPause.
-                // btns.$btnCancel.
-                $(window).on('keydown', function(event) {
-                    if ($lastKey === event.keyCode) {
+                $btnGameList.addEventListener('click', this.goToGameList.bind(this));
+                $btnStart.addEventListener('click', this.startGame.bind(this));
+                $btnConnect.addEventListener('click', this.joinAsRandom.bind(this));
+                $btnConnectPolice.addEventListener('click', this.joinAsPolice.bind(this));
+                $btnConnectThief.addEventListener('click', this.joinAsThief.bind(this));
+                $btnLeave.addEventListener('click', this.leaveGame.bind(this));
+                $btnPause.addEventListener('click', this.pauseGame.bind(this));
+                $btnCancel.addEventListener('click', this.cancelGame.bind(this));
+
+                window.addEventListener('keydown', (event) => {
+                    if ($lastKey === event.key) {
                         return;
+
                     }
                     /**
                      * TODO Task 4. Вместо event.keyCode начните использовать event.key
                      */
-                    switch (event.keyCode) {
-                        case 32:
+                    switch (event.key) {
+                        case 'Space':
                             event.preventDefault();
                             this.state.game.stopMoving();
                             break;
-                        case 37:
+                        case 'ArrowLeft':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.left);
                             break;
-                        case 38:
+                        case 'ArrowUp':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.top);
                             break;
-                        case 39:
+                        case 'ArrowRight':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.right);
                             break;
-                        case 40:
+                        case 'ArrowDown':
                             event.preventDefault();
                             this.state.game.beginMove(GameApi.MoveDirection.bottom);
                             break;
@@ -1016,8 +1018,9 @@
                 this.game.$gameCaption
                     .empty()
                     .append($(app.utils.t(
-                        "<div class='game-caption-name'>{name} <span class='game-caption-status game-caption-status-{status}'>{statusName}</span></div>",
+                        "<div id=' gameCaption-name'>{name} <span class='gameCaption-status gameCaption-status-{status}'>{statusName}</span></div>",
                         {name: name, status: status, statusName: app.utils.getStatusName(status)})));
+
             };
             GameView.prototype.setTimer = function (data) {
                 var seconds = data.s;
