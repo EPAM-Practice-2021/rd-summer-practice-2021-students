@@ -751,59 +751,91 @@
     (function (game) {
         game.GameView = (function() {
             function getGame() {
-                /**
-                 * TODO Task1. Объявление переменных и их связка с DOM
-                 *  Для получения доступа к DOM элементу следует
-                 *  использовать document.getElementById('elementId')
-                 *  можно использовать $('selector')
-                 */
-                return {
-                    $gameCaption: $('#gameCaption'),
-                    // $switchTimer: ,
-                    // team1: {
-                    //     $container: ,
-                    //     $caption: ,
-                    //     $players: ,
-                    //     $lives: ,
-                    //     $coins:
-                    // },
-                    // team2: {
-                    //     $container: ,
-                    //     $caption: ,
-                    //     $players: ,
-                    //     $lives: ,
-                    //     $coins:
-                    // },
-                    // mapBuffer: null,
-                    // $mapCanvas: ,
-                    // mapCellSize: 25
-                };
-            }
-            function getButtons() {
-                // TODO Task1.2 Объявление переменных и их связка с DOM
-                return {
-                    // $btnGameList:,
-                    // $btnStart:,
-                    // $btnConnect:,
-                    // $btnConnectPolice:,
-                    // $btnConnectThief:,
-                    // $btnLeave:,
-                    // $btnPause:,
-                    // $btnCancel:
-                };
-            }
-            function getImages() {
-                // TODO Task1.3 Объявление переменных и их связка с DOM
-                return {
-                    imgHeart: $('#img_heart').get(0),
-                    // imgCoin: ,
-                    // imgPolice: ,
-                    // imgPoliceSelf: ,
-                    // imgThief: ,
-                    // imgThiefSelf: ,
-                    // imgSwitch:
-                };
-            }
+                /*
+                * TODO Task1. Объявление переменных и их связка с DOM
+                *  Для получения доступа к DOM элементу следует
+                *  использовать document.getElementById('elementId')
+                *  можно использовать $('selector')
+                */
+              // return {
+                  // $gameCaption: $('#gameCaption'),
+                   // $switchTimer: ,
+                   // team1: {
+                   //     $container: ,
+                   //     $caption: ,
+                   //     $players: ,
+                   //     $lives: ,
+                   //     $coins:
+                   // },
+                   // team2: {
+                   //     $container: ,
+                   //     $caption: ,
+                   //     $players: ,
+                   //     $lives: ,
+                   //     $coins:
+                   // },
+                   // mapBuffer: null,
+                   // $mapCanvas: ,
+                   // mapCellSize: 25
+                   const $containerGame = document.getElementById('game');
+                   const $loading = document.getElementById('loading');
+                   const $error = document.getElementById('loadError');
+                   const $mapCanvas = document.getElementById('gameCanvas');
+                   const $gameCaption = document.getElementById('gameCaption');
+                   const $switchTimer = document.getElementById('switchTimer');
+                   const $team1Container = document.getElementById('team1');
+                   const $team1Caption = document.getElementById('team1Caption');
+                   const $team1Players = document.getElementById('team1Users');
+                   const $team1Lives = document.getElementById('team1Lives')
+                   const $team1Coins = document.getElementById('team1Coins');
+                   const $team2Container = document.getElementById('team2');
+                   const $team2Caption = document.getElementById('team2Caption');
+                   const $team2Players = document.getElementById('team2Users');
+                   const $team2Lives = document.getElementById('team2Lives');
+                   const $team2Coins = document.getElementById('team2Coins');
+
+           }
+           function getButtons() {
+               // TODO Task1.2 Объявление переменных и их связка с DOM
+              // return {
+                   // $btnGameList:,
+                   // $btnStart:,
+                   // $btnConnect:,
+                   // $btnConnectPolice:,
+                   // $btnConnectThief:,
+                   // $btnLeave:,
+                   // $btnPause:,
+                   // $btnCancel:
+               const $btnGameList = document.getElementById('btnGameList');
+               const $btnStart = document.getElementById('btnStart');
+               const $btnConnect = document.getElementById('btnConnect');
+               const $btnConnectPolice = document.getElementById('btnConnectPolice');
+               const $btnConnectThief = document.getElementById('btnConnectThief');
+               const $btnLeave = document.getElementById('btnLeave');
+               const $btnPause = document.getElementById('btnPause');
+               const $btnCancel = document.getElementById('btnCancel');
+
+           }
+           function getImages() {
+               // TODO Task1.3 Объявление переменных и их связка с DOM
+              // return {
+                   //imgHeart: $('#img_heart').get(0),
+                   // imgCoin: ,
+                   // imgPolice: ,
+                   // imgPoliceSelf: ,
+                   // imgThief: ,
+                   // imgThiefSelf: ,
+                   // imgSwitch:
+               const $imgHeart = document.getElementById('img_heart');
+               const $imgCoin = document.getElementById('img_coin');
+               const $imgPolice = document.getElementById('img_police');
+               const $imgPoliceSelf = document.getElementById('img_police_self');
+               const $imgThief = document.getElementById('img_thief');
+               const $imgThiefSelf = document.getElementById('img_thief_self');
+               const $imgSwitch = document.getElementById('img_switch');
+           }
+
+
             function setMapCanvasSizing($canvas, width, height) {
                 /**
                  * TODO Task 2. Опишите функцию которая задаст размеры игрового поля
