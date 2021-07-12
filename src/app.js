@@ -223,7 +223,7 @@
             return GameTable;
         })();
     })(app.gameList = app.gameList || {});
-})(window.app = window.app || {}, $);
+})(window.app = window.app || {});
 
 // new game form
 (function(app, $) {
@@ -361,7 +361,7 @@
             return GameForm;
         })();
     })(app.newGame = app.newGame || {});
-})(window.app = window.app || {}, $);
+})(window.app = window.app || {});
 
 // game.html State
 (function (app, $) {
@@ -744,7 +744,7 @@
             return GameState;
         })();
     })(app.game = app.game || {});
-})(window.app = window.app || {}, $);
+})(window.app = window.app || {});
 
 // game.html UI
 (function (app, $) {
@@ -757,26 +757,7 @@
                 *  использовать document.getElementById('elementId')
                 *  можно использовать $('selector')
                 */
-              // return {
-                  // $gameCaption: $('#gameCaption'),
-                   // $switchTimer: ,
-                   // team1: {
-                   //     $container: ,
-                   //     $caption: ,
-                   //     $players: ,
-                   //     $lives: ,
-                   //     $coins:
-                   // },
-                   // team2: {
-                   //     $container: ,
-                   //     $caption: ,
-                   //     $players: ,
-                   //     $lives: ,
-                   //     $coins:
-                   // },
-                   // mapBuffer: null,
-                   // $mapCanvas: ,
-                   // mapCellSize: 25
+              
                    const $containerGame = document.getElementById('game');
                    const $loading = document.getElementById('loading');
                    const $error = document.getElementById('loadError');
@@ -793,19 +774,36 @@
                    const $team2Players = document.getElementById('team2Users');
                    const $team2Lives = document.getElementById('team2Lives');
                    const $team2Coins = document.getElementById('team2Coins');
+                  
+                   return {
+                    $containerGame,  
+                    $loading,
+                    $error,   
+                    $gameCaption,
+                     $switchTimer,
+                     team1: {
+                         $container:$team1Container,
+                         $caption:$team1Caption,
+                         $players:$team1Players,
+                         $lives:$team1Lives,
+                         $coins:$team1Coins,
+                     },
+
+                     team2: {
+                         $container:$team2Container,
+                         $caption:$team2Caption,
+                         $players:$team2Players,
+                         $lives:$team2Lives,
+                         $coins:$team2Coins,
+                     },
+                     mapBuffer: null,
+                     $mapCanvas,
+                     mapCellSize: 25.
+                    }
 
            }
            function getButtons() {
                // TODO Task1.2 Объявление переменных и их связка с DOM
-              // return {
-                   // $btnGameList:,
-                   // $btnStart:,
-                   // $btnConnect:,
-                   // $btnConnectPolice:,
-                   // $btnConnectThief:,
-                   // $btnLeave:,
-                   // $btnPause:,
-                   // $btnCancel:
                const $btnGameList = document.getElementById('btnGameList');
                const $btnStart = document.getElementById('btnStart');
                const $btnConnect = document.getElementById('btnConnect');
@@ -815,17 +813,20 @@
                const $btnPause = document.getElementById('btnPause');
                const $btnCancel = document.getElementById('btnCancel');
 
+               return {
+                   $btnGameList,
+                   $btnStart,
+                   $btnConnect,
+                   $btnConnectPolice,
+                   $btnConnectThief,
+                   $btnLeave,
+                   $btnPause,
+                   $btnCancel
+           }
+
            }
            function getImages() {
                // TODO Task1.3 Объявление переменных и их связка с DOM
-              // return {
-                   //imgHeart: $('#img_heart').get(0),
-                   // imgCoin: ,
-                   // imgPolice: ,
-                   // imgPoliceSelf: ,
-                   // imgThief: ,
-                   // imgThiefSelf: ,
-                   // imgSwitch:
                const $imgHeart = document.getElementById('img_heart');
                const $imgCoin = document.getElementById('img_coin');
                const $imgPolice = document.getElementById('img_police');
@@ -833,6 +834,16 @@
                const $imgThief = document.getElementById('img_thief');
                const $imgThiefSelf = document.getElementById('img_thief_self');
                const $imgSwitch = document.getElementById('img_switch');
+
+               return {
+                $imgHeart,
+                $imgCoin,
+                $imgPolice,
+                $imgPoliceSelf,
+                $imgThief,
+                $imgThiefSelf,
+                $imgSwitch,
+               }
            }
 
 
@@ -992,7 +1003,7 @@
                             break;
                     }
                     //console.log(event);
-                }.bind(this));
+                });
                 $(window).on('keyup', function() {
                     $lastKey = -1;
                 }.bind(this));
@@ -1296,7 +1307,7 @@
              return GameView;
          })();
      })(app.game = app.game || {});
- })(window.app = window.app || {}, $);
+ })(window.app = window.app || {});
  
  /**
   * TODO: Task 12. (Дополнительно) Обработайте ошибки которые могут быть при нажатии на кнопки
