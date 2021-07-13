@@ -223,7 +223,7 @@
             return GameTable;
         })();
     })(app.gameList = app.gameList || {});
-})(window.app = window.app || {});
+})(window.app = window.app || {}, $);
 
 // new game form
 (function(app, $) {
@@ -361,7 +361,7 @@
             return GameForm;
         })();
     })(app.newGame = app.newGame || {});
-})(window.app = window.app || {});
+})(window.app = window.app || {}, $);
 
 // game.html State
 (function (app, $) {
@@ -744,7 +744,7 @@
             return GameState;
         })();
     })(app.game = app.game || {});
-})(window.app = window.app || {});
+})(window.app = window.app || {}, $);
 
 // game.html UI
 (function (app, $) {
@@ -757,28 +757,28 @@
                 *  использовать document.getElementById('elementId')
                 *  можно использовать $('selector')
                 */
-              
-                   const $containerGame = document.getElementById('game');
-                   const $loading = document.getElementById('loading');
-                   const $error = document.getElementById('loadError');
-                   const $mapCanvas = document.getElementById('gameCanvas');
-                   const $gameCaption = document.getElementById('gameCaption');
-                   const $switchTimer = document.getElementById('switchTimer');
-                   const $team1Container = document.getElementById('team1');
-                   const $team1Caption = document.getElementById('team1Caption');
-                   const $team1Players = document.getElementById('team1Users');
-                   const $team1Lives = document.getElementById('team1Lives')
-                   const $team1Coins = document.getElementById('team1Coins');
-                   const $team2Container = document.getElementById('team2');
-                   const $team2Caption = document.getElementById('team2Caption');
-                   const $team2Players = document.getElementById('team2Users');
-                   const $team2Lives = document.getElementById('team2Lives');
-                   const $team2Coins = document.getElementById('team2Coins');
-                  
+
+                   const $containerGame = $('game');
+                   const $loading = $('#loading');
+                   const $error = $('#loadError');
+                   const $mapCanvas = $('#gameCanvas');
+                   const $gameCaption = $('#gameCaption');
+                   const $switchTimer = $('#switchTimer');
+                   const $team1Container = $('#team1');
+                   const $team1Caption = $('#team1Caption');
+                   const $team1Players = $('#team1Users');
+                   const $team1Lives = $('#team1Lives')
+                   const $team1Coins = $('#team1Coins');
+                   const $team2Container = $('#team2');
+                   const $team2Caption = $('#team2Caption');
+                   const $team2Players = $('#team2Users');
+                   const $team2Lives = $('#team2Lives');
+                   const $team2Coins = $('#team2Coins');
+
                    return {
-                    $containerGame,  
+                    $containerGame,
                     $loading,
-                    $error,   
+                    $error,
                     $gameCaption,
                      $switchTimer,
                      team1: {
@@ -804,14 +804,14 @@
            }
            function getButtons() {
                // TODO Task1.2 Объявление переменных и их связка с DOM
-               const $btnGameList = document.getElementById('btnGameList');
-               const $btnStart = document.getElementById('btnStart');
-               const $btnConnect = document.getElementById('btnConnect');
-               const $btnConnectPolice = document.getElementById('btnConnectPolice');
-               const $btnConnectThief = document.getElementById('btnConnectThief');
-               const $btnLeave = document.getElementById('btnLeave');
-               const $btnPause = document.getElementById('btnPause');
-               const $btnCancel = document.getElementById('btnCancel');
+               const $btnGameList = $('#btnGameList');
+               const $btnStart = $('#btnStart');
+               const $btnConnect = $('#btnConnect');
+               const $btnConnectPolice = $('#btnConnectPolice');
+               const $btnConnectThief = $('#btnConnectThief');
+               const $btnLeave = $('#btnLeave');
+               const $btnPause = $('#btnPause');
+               const $btnCancel = $('#btnCancel');
 
                return {
                    $btnGameList,
@@ -827,13 +827,13 @@
            }
            function getImages() {
                // TODO Task1.3 Объявление переменных и их связка с DOM
-               const $imgHeart = document.getElementById('img_heart');
-               const $imgCoin = document.getElementById('img_coin');
-               const $imgPolice = document.getElementById('img_police');
-               const $imgPoliceSelf = document.getElementById('img_police_self');
-               const $imgThief = document.getElementById('img_thief');
-               const $imgThiefSelf = document.getElementById('img_thief_self');
-               const $imgSwitch = document.getElementById('img_switch');
+               const $imgHeart = $('#img_heart').get(0);
+               const $imgCoin = $('#img_coin').get(0);
+               const $imgPolice = $('#img_police').get(0);
+               const $imgPoliceSelf = $('#img_police_self').get(0);
+               const $imgThief = $('#img_thief').get(0);
+               const $imgThiefSelf = $('#img_thief_self').get(0);
+               const $imgSwitch = $('#img_switch').get(0);
 
                return {
                 $imgHeart,
@@ -851,11 +851,10 @@
                 /**
                  * TODO Task 2. Опишите функцию которая задаст размеры игрового поля
                  */
-                $canvas.style.width = width + 'px';
-                $canvas.style.height = `${height}px`;
-                $canvas.width = `${width}`;
-                $canvas.height = `${height}`;
-                return $canvas;
+                return $canvas.css('width', `${width}px`)
+                    .css('height', `${height}px`)
+                    .attr('width', `${width}px`)
+                    .attr('height', `${height}px`);
             }
             function drawMapField(canvas, map, width, height, cellSize) {
                 var ctx = canvas.getContext("2d");
@@ -912,7 +911,7 @@
                 c.captionChanged.add(function (name, status){
                     this.setGameCaption(name, status);
                 }.bind(this));
-          
+
                 c.invalidGame.add(function (error){
                     this.showError(error);
                 }.bind(this));
@@ -920,15 +919,15 @@
                 c.mapChanged.add(function (map){
                     this.updateMap(map);
                 }.bind(this));
-          
+
                 c.playerChanged.add(function (player){
                     this.updatePlayer(player);
                 }.bind(this));
-           
+
                 c.statusChanged.add(function (status){
                     this.setButtons(status);
                 }.bind(this));
-           
+
                 c.synced.add(function (){
                     this.show();
                 }.bind(this));
@@ -957,20 +956,36 @@
                     this.setTimer(data);
                 }.bind(this));
 
-            
+
             };
             GameView.prototype.bindButtons = function () {
                 // TODO Task 3.1 повешайте обработчики событий
-                var btns = this.btns;
                 var $lastKey = -1;
-                $btnGameList.addEventListener('click', this.goToGameList.bind(this));
-                $btnStart.addEventListener('click', this.startGame.bind(this));
-                $btnConnect.addEventListener('click', this.joinAsRandom.bind(this));
-                $btnConnectPolice.addEventListener('click', this.joinAsPolice.bind(this));
-                $btnConnectThief.addEventListener('click', this.joinAsThief.bind(this));
-                $btnLeave.addEventListener('click', this.leaveGame.bind(this));
-                $btnPause.addEventListener('click', this.pauseGame.bind(this));
-                $btnCancel.addEventListener('click', this.cancelGame.bind(this));
+                this.btns.$btnGameList.click(function (){
+                    console.log('res:this.state.game.goToGameList', this.state.game);
+                    window.location.replace("index.html");
+                }.bind(this));
+                this.btns.$btnStart.click(function (){
+                    this.state.game.start()
+                }.bind(this));
+                this.btns.$btnConnect.click(function (){
+                    this.state.game.join(GameApi.GameTeamRole.random);
+                }.bind(this));
+                this.btns.$btnConnectPolice.click(function (){
+                    this.state.game.join(GameApi.GameTeamRole.police);
+                }.bind(this));
+                this.btns.$btnConnectThief.click(function (){
+                    this.state.game.join(GameApi.GameTeamRole.thief);
+                }.bind(this));
+                this.btns.$btnLeave.click(function (){
+                    this.state.game.leave()
+                }.bind(this));
+                this.btns.$btnPause.click(function (){
+                    this.state.game.pause()
+                }.bind(this));
+                this.btns.$btnCancel.click(function (){
+                    this.state.game.cancel()
+                }.bind(this));
 
                 window.addEventListener('keydown', (event) => {
                     if ($lastKey === event.key) {
@@ -1028,13 +1043,13 @@
                 var img = null;
                 switch (objType) {
                     case GameApi.MapCellType.coin:
-                        img = this.imgs.imgCoin;
+                        img = this.imgs.$imgCoin;
                         break;
                     case GameApi.MapCellType.life:
-                        img = this.imgs.imgHeart;
+                        img = this.imgs.$imgHeart;
                         break;
                     case GameApi.MapCellType.swtch:
-                        img = this.imgs.imgSwitch;
+                        img = this.imgs.$imgSwitch;
                         break;
                 }
                 if (img) {
@@ -1044,8 +1059,8 @@
             GameView.prototype.drawPlayer = function (ctx, playerId, police, x, y, cellSize) {
                 var self = this.state.gameApi.questor.user.id === playerId;
                 var halfCell = cellSize / 2;
-                var img = police ? (self ? this.imgs.imgPoliceSelf : this.imgs.imgPolice) :
-                    self ? this.imgs.imgThiefSelf : this.imgs.imgThief;
+                var img = police ? (self ? this.imgs.$imgPoliceSelf : this.imgs.$imgPolice) :
+                    self ? this.imgs.$imgThiefSelf : this.imgs.$imgThief;
                 ctx.save();
 
                 ctx.translate(x * cellSize + halfCell, y * cellSize + halfCell);
@@ -1211,73 +1226,73 @@
                  *    this.state.getPlayer(currentUserId) - пользователь в игре?
                  *    this.btns - кнопки тут
                  */
-                  status = this.state.status;
+                  const currentStatus = status || this.state.status;
                   const currentUser = this.state.gameApi.questor.user.id;
                   const isOwner = currentUser === this.state.owner.id;
                   const isAdmin = this.state.gameApi.questor.user.isAdmin;
                   const connected = Boolean(this.state.getPlayer(currentUser));
                   const initBtnsStartCancel = () => {
                   if (isOwner) {
-                     this.$btnStart.removeClass("hidden");
-                     this.$btnCancel.removeClass("hidden");                    
-                     }               
-                     if (!isOwner) {                   
-                     this.$btnStart.addClass("hidden");                 
-                     }                 
-                     if (!isOwner && isAdmin) {                 
-                     this.$btnCancel.removeClass("hidden");                 
-                     }                  
-                     if (!isOwner && !isAdmin) {                 
-                     this.$btnCancel.addClass("hidden");                
+                     this.btns.$btnStart.removeClass("hidden");
+                     this.btns.$btnCancel.removeClass("hidden");
+                     }
+                     if (!isOwner) {
+                     this.btns.$btnStart.addClass("hidden");
+                     }
+                     if (!isOwner && isAdmin) {
+                     this.btns.$btnCancel.removeClass("hidden");
+                     }
+                     if (!isOwner && !isAdmin) {
+                     this.btns.$btnCancel.addClass("hidden");
                      }
                   }
- 
-                  if (this.state.status === GameApi.GameStatus.canceled || this.state.status === GameApi.GameStatus.finished) {
-                    this.$btnStart.addClasses("hidden"); 
-                    this.$btnLeave.addClasses("hidden");
-                    this.$btnPause.addClasses("hidden");
-                    this.$btnCancel.addClasses("hidden");                    
-                    this.$btnConnect.addClasses("hidden");                    
-                    this.$btnConnectPolice.addClasses("hidden");                    
-                    this.$btnConnectThief.addClasses("hidden");                    
-                  return;                    
+
+                  if (currentStatus === GameApi.GameStatus.canceled || currentStatus === GameApi.GameStatus.finished) {
+                    this.btns.$btnStart.addClass("hidden");
+                    this.btns.$btnLeave.addClass("hidden");
+                    this.btns.$btnPause.addClass("hidden");
+                    this.btns.$btnCancel.addClass("hidden");
+                    this.btns.$btnConnect.addClass("hidden");
+                    this.btns.$btnConnectPolice.addClass("hidden");
+                    this.btns.$btnConnectThief.addClass("hidden");
+                  return;
                  }
- 
-                 if (this.state.status === GameApi.GameStatus.open ||
-                     this.state.status === GameApi.GameStatus.ready) {                    
-                     this.$btnPause.addClasses("hidden");                    
-                     initBtnsStartCancel();                    
-                     if(connected) {                    
-                     this.$btnLeave.removeClasses("hidden");                    
-                     this.$btnConnect.addClasses("hidden");                    
-                     this.$btnConnectPolice.addClasses("hidden");                    
-                     this.$btnConnectThief.addClasses("hidden");                    
-                     } else {                    
-                     this.$btnLeave.addClasses("hidden");                    
-                     this.$btnConnect.removeClasses("hidden");                    
-                     this.$btnConnectPolice.removeClasses("hidden");                    
-                     this.$btnConnectThief.removeClasses("hidden");                    
-                     }                    
-                     return;                    
-                     }                    
+
+                 if (currentStatus === GameApi.GameStatus.open ||
+                     currentStatus === GameApi.GameStatus.ready) {
+                     this.btns.$btnPause.addClass("hidden");
                      initBtnsStartCancel();
- 
+                     if(connected) {
+                     this.btns.$btnLeave.removeClass("hidden");
+                     this.btns.$btnConnect.addClass("hidden");
+                     this.btns.$btnConnectPolice.addClass("hidden");
+                     this.btns.$btnConnectThief.addClass("hidden");
+                     } else {
+                     this.btns.$btnLeave.addClass("hidden");
+                     this.btns.$btnConnect.removeClass("hidden");
+                     this.btns.$btnConnectPolice.removeClass("hidden");
+                     this.btns.$btnConnectThief.removeClass("hidden");
+                     }
+                     return;
+                     }
+                     initBtnsStartCancel();
+
                      if (
-                         this.state.status === GameApi.GameStatus.starting ||                        
-                         this.state.status === GameApi.GameStatus.inProcess                        
-                         ) {                        
-                         this.$btnStart.addClasses("hidden");                        
-                         this.$btnLeave.addClasses("hidden");                        
-                         this.$btnConnect.addClasses("hidden");                        
-                         this.$btnConnectPolice.addClasses("hidden");                        
-                         this.$btnConnectThief.addClasses("hidden");                        
-                         } else {                        
-                         this.$btnPause.addClasses("hidden");                        
-                         this.$btnLeave.addClasses("hidden");                        
-                         this.$btnConnect.addClasses("hidden");                        
-                         this.$btnConnectPolice.addClasses("hidden");                        
-                         this.$btnConnectThief.addClasses("hidden");                        
-                     }                             
+                         currentStatus === GameApi.GameStatus.starting ||
+                         currentStatus === GameApi.GameStatus.inProcess
+                         ) {
+                         this.btns.$btnStart.addClass("hidden");
+                         this.btns.$btnLeave.addClass("hidden");
+                         this.btns.$btnConnect.addClass("hidden");
+                         this.btns.$btnConnectPolice.addClass("hidden");
+                         this.btns.$btnConnectThief.addClass("hidden");
+                         } else {
+                         this.btns.$btnPause.addClass("hidden");
+                         this.btns.$btnLeave.addClass("hidden");
+                         this.btns.$btnConnect.addClass("hidden");
+                         this.btns.$btnConnectPolice.addClass("hidden");
+                         this.btns.$btnConnectThief.addClass("hidden");
+                     }
              };
              GameView.prototype.showLoading = function () {
                  /**
@@ -1303,16 +1318,15 @@
                   this.$container.removeClass("hidden");
                   this.$loading.addClass("hidden");
              };
- 
+
              return GameView;
          })();
      })(app.game = app.game || {});
- })(window.app = window.app || {});
- 
+ })(window.app = window.app || {}, $);
+
  /**
   * TODO: Task 12. (Дополнительно) Обработайте ошибки которые могут быть при нажатии на кнопки
   *      для показа сообщения можно использовать alert
   *      можно попробовать сделать это используя модальные окна, только если игра уже работает
   *      https://getbootstrap.com/docs/3.3/javascript/#modals
   */
- 

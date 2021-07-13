@@ -21,7 +21,7 @@
     <hr>
      <div name="timer">
          <h3>Осталось времени до смены ролей:
-             <span id="switchTimer" class="game-timer-ok">00:00 </span> 
+             <span id="switchTimer" class="game-timer-ok">00:00 </span>
         </h3>
      </div>
      <br>
@@ -40,7 +40,7 @@
                  </ul>
              </div></td>
              <td width=40%>
-                 <div id="gameCanvas" class="field"></div>
+                 <canvas id="gameCanvas" class="field"></canvas>
              </td>
              <td valign="top" width=28%><div class="statistics">
                 <ul id="team2">
@@ -148,19 +148,19 @@ B5Mj0iMjEiIC8+CjxsaW5lIHgxPSIyMiIgeTE9IjE3IiB4Mj0iMTgiIHkyPSIyMSIgLz4KPC9nP
 go8L3N2Zz4="/>
 </div>
 <!--  TODO: Раскомментировать при начале работы с сервером -->
-<!--<script src="app.js"></script>-->
-<!--<script>-->
-<!--    (function() {-->
-<!--        var gameApi = new GameApi();-->
-<!--        gameApi.questor.on("unauthorized", function () {-->
-<!--            window.location.replace("../login");-->
-<!--        });-->
-<!--        gameApi.questor.login();-->
-<!--        var gameState = new app.game.GameState(gameApi);-->
-<!--        new app.game.GameView($("#game"), $("#loading"), $("#loadError"), gameState);-->
-<!--        gameState.request();-->
-<!--    })();-->
+<script src="app.js"></script>
+<script>
+    (function() {
+        var gameApi = new GameApi();
+        gameApi.questor.on("unauthorized", function () {
+            window.location.replace("../login");
+        });
+        gameApi.questor.login();
+        var gameState = new app.game.GameState(gameApi);
+        new app.game.GameView($("#game"), $("#loading"), $("#loadError"), gameState);
+        gameState.request();
+    })();
 
-<!--</script>-->
+</script>
 </body>
 </html>
